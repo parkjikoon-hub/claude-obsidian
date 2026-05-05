@@ -213,7 +213,7 @@ class ObsidianCLI {
     } catch { return null; }
   }
 
-  static async isAvailable() { return (await this.run('--version')) !== null; }
+  static async isAvailable() { return (await this.run('version')) !== null; }
 
   static async searchRelated(query, limit = 3) {
     const r = await this.run(`search query="${query.slice(0, 80)}" limit=${limit} format=json`);
