@@ -2,7 +2,7 @@
 
 Obsidian 안에서 Claude AI와 대화하고, 노트를 분석·저장하는 KNOT 플러그인입니다.
 
-![version](https://img.shields.io/badge/version-1.1.0-blue)
+![version](https://img.shields.io/badge/version-1.3.0-blue)
 ![obsidian](https://img.shields.io/badge/Obsidian-1.0.0+-purple)
 ![license](https://img.shields.io/badge/license-MIT-green)
 
@@ -24,13 +24,17 @@ KNOT는 단순한 노트 도구가 아닌, 지식이 행동으로 이어지는 �
 | 기능 | 설명 |
 |------|------|
 | 💬 **Claude 채팅 사이드바** | Obsidian 오른쪽 패널에서 Claude AI와 실시간 대화 |
-| 🗺️ **Memory Map** | BM25 알고리즘으로 관련 노트를 로컬에서 탐색 (API 비용 0원) |
 | 📌 **핀 노트 영구 저장** | 재시작 후에도 핀 고정 노트 유지 |
 | ⚡ **슬래시(/) 커맨드** | `/요약` `/분석` `/기획서` 등 입력창에서 빠른 명령 실행 |
 | ⏱️ **작업 타임라인** | AI 응답 중 진행 단계 실시간 표시 |
-| 📎 **노트 컨텍스트 자동 전달** | 현재 열린 노트를 Claude에게 자동 전달 |
+| 📄 **노트 컨텍스트 토글** | 현재 열린 노트를 Claude에게 전달 (버튼으로 켜기/끄기) |
+| 🌐 **웹 검색 토글** | 실시간 웹 검색으로 최신 정보 활용 (버튼으로 켜기/끄기) |
 | 💾 **노트 자동 생성** | 대화 내용을 KNOT 프론트매터가 포함된 노트로 저장 |
 | 🧠 **Extended Thinking** | Low / Medium / High / Max 사고 단계 선택 |
+| 🔄 **재생성** | AI 응답이 마음에 안 들면 같은 질문으로 다시 생성 |
+| ✏️ **메시지 편집** | 이전에 보낸 메시지를 수정하면 그 이후 대화 자동 재시작 |
+| ⏹️ **중단 후 텍스트 보존** | Esc로 중단해도 받은 내용은 저장됨 |
+| 📏 **히스토리 자동 관리** | 대화가 길어지면 오래된 내용을 자동으로 정리해 토큰 초과 방지 |
 
 ---
 
@@ -48,17 +52,6 @@ KNOT는 단순한 노트 도구가 아닌, 지식이 행동으로 이어지는 �
 | `/저장` | 대화를 옵시디언 노트로 저장 |
 | `/번역` | 현재 노트 한→영 번역 |
 | `/초기화` | 대화 초기화 |
-
----
-
-## Memory Map 사용법
-
-1. 패널 상단 **"구축하기"** 클릭 → 볼트 전체 노트 색인 생성
-2. 노트를 열고 **"관련 노트 찾기"** 클릭 → 관련 노트 최대 8개 추천
-3. 추천 결과의 📌 버튼으로 바로 핀 고정 가능
-4. **"재구축"** 으로 새 노트 추가 후 색인 갱신
-
-> Memory Map은 완전히 로컬에서 동작합니다. API 호출 없이 무료로 사용할 수 있습니다.
 
 ---
 
@@ -89,11 +82,12 @@ KNOT는 단순한 노트 도구가 아닌, 지식이 행동으로 이어지는 �
 
 4. **설정 → Claude Obsidian → API 키** 입력
 
-### Git 클론으로 설치
+### KNOT Starter Vault 사용 (추천)
+
+KNOT Vault를 통째로 설치하면 3개 플러그인이 모두 포함되어 있습니다.
 
 ```bash
-cd <볼트 경로>/.obsidian/plugins/
-git clone https://github.com/parkjikoon-hub/claude-obsidian
+git clone https://github.com/parkjikoon-hub/knot-vault
 ```
 
 ---
@@ -104,10 +98,14 @@ git clone https://github.com/parkjikoon-hub/claude-obsidian
 - 왼쪽 사이드바의 **🤖 아이콘** 클릭
 - 또는 `Ctrl+P` → `Claude Obsidian 패널 열기`
 
-### 메시지 전송
-- `Enter`: 메시지 전송
-- `Shift+Enter` / `Ctrl+Enter`: 줄바꿈
-- `/`: 슬래시 커맨드 메뉴 열기
+### 키보드 단축키
+
+| 키 | 동작 |
+|----|------|
+| `Enter` | 메시지 전송 |
+| `Shift+Enter` / `Ctrl+Enter` | 줄바꿈 |
+| `/` | 슬래시 커맨드 메뉴 열기 |
+| `Esc` | 생성 중단 (받은 내용은 저장됨) |
 
 ### 노트 자동 저장
 채팅창에서 다음 키워드를 포함하면 자동으로 노트가 생성됩니다:
@@ -139,7 +137,6 @@ git clone https://github.com/parkjikoon-hub/claude-obsidian
 
 - API 키는 옵시디언 로컬 설정에만 저장됩니다.
 - 대화 내용은 Anthropic API로만 전송됩니다.
-- Memory Map 색인은 볼트 내 로컬 파일(`.claude-obsidian/memory/`)에 저장됩니다.
 
 ---
 
